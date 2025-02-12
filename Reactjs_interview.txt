@@ -5,21 +5,139 @@ Below, I have listed the interview questions that were asked, covering topics su
 
 React JS
 
-If there are four UI components rendered on the page and one of them encounters a fatal error, how would you handle this situation to ensure that the other three components continue to function normally and only display an error message for the affected component?
-Explain react lazy loading.
-If lazy loading is used, will the React build generate separate JS files or a single JS file in the build?
-How to share data between parent and child components?
+1. If there are four UI components rendered on the page and one of them encounters a fatal error, how would you handle this situation to ensure that the other three components continue to function normally and only display an error message for the affected component?
+
+
+To handle a fatal error in one of four UI components in React.js while ensuring the other three continue to function normally, 
+implement Error Boundaries. Error Boundaries are React components that catch JavaScript errors 
+anywhere in their child component tree, log those errors, and display a fallback UI instead of the component tree that crashed.
+
+
+If Component1 encounters a fatal error, the ErrorBoundary will catch it, and MyComponent1 will 
+render "Something went wrong." while Component2, Component3, and Component4 will continue to function normally.
+
+
+
+2. Explain react lazy loading.
+
+Lazy loading in React is a technique that defers the loading of components until they are needed, 
+improving initial load time and performance. It's achieved using React.lazy() and Suspense. React.lazy() allows importing
+components dynamically, and Suspense handles the loading state, showing a fallback UI while waiting for the component to load.
+
+
+import React, { Suspense, lazy } from 'react';
+
+const MyComponent = lazy(() => import('./MyComponent'));
+
+function App() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <MyComponent />
+    </Suspense>
+  );
+}
+In this example, MyComponent is only loaded when it's about to be rendered.
+Suspense displays "Loading..." until MyComponent is ready. 
+This approach is beneficial for large applications with many components, 
+as it reduces the initial load by only loading necessary components.
+
+3. If lazy loading is used, will the React build generate separate JS files or a single JS file in the build?
+
+When lazy loading is implemented in a React application, the build process generates separate JavaScript files, 
+often referred to as "chunks," rather than a single monolithic file. This is a key aspect of
+code splitting, where the application's code is divided into smaller, more manageable pieces that can be loaded on demand.
+
+
+For instance, if you have three components (A, B, and C), and you lazy load component C, the build output will likely include:
+A main bundle containing the code for components A and B, as well as any shared dependencies and the React runtime.
+A separate chunk specifically for component C and its dependencies.
+
+When the application initially loads, only the main bundle is fetched. If and when component C needs to be displayed, 
+the corresponding chunk is requested from the server and loaded asynchronously.
+This approach offers significant performance benefits, especially for large applications, as it reduces the amount of code that
+needs to be downloaded and parsed upfront.
+
+4. How to share data between parent and child components?
+
+Data can be shared between parent and child components in React using props and callbacks.
+Passing data from parent to child (Props): 
+The parent component can pass data to its children as attributes, which are received by the child component as props.
+
+Code
+
+    // Parent Component
+    function ParentComponent() {
+      const message = "Hello from parent!";
+      return (
+        <ChildComponent text={message} />
+      );
+    }
+    
+    // Child Component
+    function ChildComponent(props) {
+      return (
+        <p>{props.text}</p>
+      );
+    }
+
+Passing data from child to parent (Callbacks): 
+The parent component can pass a function as a prop to the child. The child component can then call this function, 
+passing data as an argument, which allows the parent to receive data from the child.
+Code
+
+    // Parent Component
+    function ParentComponent() {
+      const [data, setData] = React.useState('');
+    
+      const handleDataFromChild = (childData) => {
+        setData(childData);
+      };
+    
+      return (
+        
+          <ChildComponent onData={handleDataFromChild} />
+          <p>Data from child: {data}</p>
+        
+      );
+    }
+    
+    // Child Component
+    function ChildComponent({ onData }) {
+      const handleClick = () => {
+        onData('Hello from child!');
+      };
+    
+      return (
+        <button onClick={handleClick}>Send data to parent</button>
+      );
+    }
+
+
 Redux JS
 
-Explain what is Normalization in redux.
+5. Explain what is Normalization in redux.
 
-what if we do not use Thunk or any other middleware while building the react application?
+In Redux, "normalization" refers to a technique where you structure your application state by treating it like a database, 
+storing individual entities as separate objects with unique identifiers, and referencing them by their IDs within relationships, 
+effectively preventing data redundancy and improving performance when dealing with complex nested data structures. 
 
-explain createAsyncThunk
+Normalization in Redux applications is a vital process aimed at structuring data efficiently. 
+Much like organizing a library, it involves categorizing books by author, genre, or topic onto shelves.
+
+6. what if we do not use Thunk or any other middleware while building the react application?
+
+If Thunk or other middleware is not used in a React application, handling asynchronous actions, like fetching data from an API,
+within the Redux store becomes challenging. Without middleware, actions must be plain objects, and reducers must be pure functions 
+without side effects. This limitation prevents direct execution of asynchronous operations within the reducer or action creators.
+
+7. explain createAsyncThunk
+
+CreateAsyncThunk is a Redux Toolkit utility function that simplifies asynchronous actions. 
+It's used to perform tasks like making API requests, updating the Redux store, and handling responses. 
 
 Javascript
 
-Problem :array = [1,2,3,4,5,6]
+8. Problem :array = [1,2,3,4,5,6]
 group = 4
 Iterations= 7
 Expected output:
@@ -37,18 +155,46 @@ const a;
 a = [8,7,5,8,9,10];
 console.log(a);
 hoisting related code snippets.
+
 HTML
 
-explain Canvas and Svg concept.
-list semantic elements in HTML and which semantic HTML elements we can’t use twice while designing a page?
+9. explain Canvas and Svg concept.
+In HTML, "Canvas" and "SVG" are both methods for creating graphics on a webpage, but they differ fundamentally in how they render
+images: Canvas is a pixel-based system where you draw directly onto a rectangular area using JavaScript,
+while SVG (Scalable Vector Graphics) uses mathematical formulas to define shapes,
+ allowing for high-quality scaling without pixelation and more flexibility in manipulating individual graphic elements. 
+
+
+
+10. list semantic elements in HTML and which semantic HTML elements we can’t use twice while designing a page?
+
+Semantic HTML elements include: <header>, <nav>, <main>, <section>, <article>, <aside>, <footer>, <figure>, <figcaption>, and 
+<details>. Among these, you should only use <header> and <footer> once per page as they represent the introductory 
+and closing sections of a webpage respectively, meaning there should only be one header and one footer on a single page. 
+
 CSS
 
-Explain Pseudo-classes
-difference between flex and grid.
-Here are the questions I can recall while writing this article. Unfortunately, I was unable to clear the interview. I could not fully solve the JavaScript coding assignment, and I struggled with questions related to the React build folder and build files.
+11. Explain Pseudo-classes
 
-I knew those topics, but cracking an interview requires both good timing and luck.
+A CSS pseudo-class is a keyword added to a selector that allows you to style an element based on its current state, 
+such as when a user hovers over it with their mouse, when it is focused by the keyboard, or when it represents a visited link,
+essentially applying styles only when certain conditions are met; 
+it's a way to dynamically change an element's appearance depending on user interaction or its position within the document,
+without needing to add additional HTML classes. 
 
-Wishes all the best for coding.
 
-Thanks for reading.
+Key points about pseudo-classes:
+Syntax:
+To use a pseudo-class, add a colon (:) after the element selector followed by the pseudo-class name, like this: selector:pseudo-class { styles }. 
+Common examples:
+:hover: Applies styles when the mouse hovers over an element. 
+:focus: Applies styles when an element is focused by the keyboard. 
+:active: Applies styles when a user is actively clicking on an element. 
+:visited: Applies styles to links that have already been visited by the user. 
+:first-child: Applies styles to the first child element within its parent. 
+
+12. difference between flex and grid.
+
+In CSS, "flex" (Flexbox) is designed for creating one-dimensional layouts, aligning elements in a single row or column, 
+while "grid" (CSS Grid) allows for two-dimensional layouts, enabling
+precise placement of elements across both rows and columns, making it better suited for complex, multi-directional layouts. 
