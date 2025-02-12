@@ -1,0 +1,54 @@
+https://medium.com/@technktailor/gavs-gs-lab-senior-react-js-developer-interview-questions-864e241f4410
+
+
+Below, I have listed the interview questions that were asked, covering topics such as React JS, Redux, JavaScript, HTML, CSS, app performance, and app deployment.
+
+React JS
+
+If there are four UI components rendered on the page and one of them encounters a fatal error, how would you handle this situation to ensure that the other three components continue to function normally and only display an error message for the affected component?
+Explain react lazy loading.
+If lazy loading is used, will the React build generate separate JS files or a single JS file in the build?
+How to share data between parent and child components?
+Redux JS
+
+Explain what is Normalization in redux.
+
+what if we do not use Thunk or any other middleware while building the react application?
+
+explain createAsyncThunk
+
+Javascript
+
+Problem :array = [1,2,3,4,5,6]
+group = 4
+Iterations= 7
+Expected output:
+[‘1’, ‘2’, ‘3’, ‘4’]
+[‘5’, ‘6’, ‘1’, ‘2’]
+[‘3’, ‘4’, ‘5’, ‘6’]
+[‘1’, ‘2’, ‘3’, ‘4’]
+[‘5’, ‘6’, ‘1’, ‘2’]
+[‘3’, ‘4’, ‘5’, ‘6’]
+[‘1’, ‘2’, ‘3’, ‘4’]
+const a;
+console.log(a++);
+console.log(a);
+const a;
+a = [8,7,5,8,9,10];
+console.log(a);
+hoisting related code snippets.
+HTML
+
+explain Canvas and Svg concept.
+list semantic elements in HTML and which semantic HTML elements we can’t use twice while designing a page?
+CSS
+
+Explain Pseudo-classes
+difference between flex and grid.
+Here are the questions I can recall while writing this article. Unfortunately, I was unable to clear the interview. I could not fully solve the JavaScript coding assignment, and I struggled with questions related to the React build folder and build files.
+
+I knew those topics, but cracking an interview requires both good timing and luck.
+
+Wishes all the best for coding.
+
+Thanks for reading.
